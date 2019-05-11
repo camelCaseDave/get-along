@@ -1,5 +1,11 @@
 export default class Poll {
-    public static async poll(fn, timeout: number, interval: number) {
+    /**
+     * Polls a function every specified number of seconds until it returns true or timeout is reached.
+     * @param fn callback Promise to poll.
+     * @param timeout seconds to continue polling for.
+     * @param interval seconds between polling calls.
+     */
+    public static async poll(fn: any, timeout: number, interval: number) {
         const endTime = Number(new Date()) + (timeout * 1000);
 
         const checkCondition = (resolve, reject) => {
