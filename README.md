@@ -24,3 +24,22 @@ Tick "Pass execution context as first parameter". Pass one parameter, a time in 
 If the form you have open is modified and saved by another user, you'll receive a notification.
 
 ![alt text](https://i.imgur.com/wrhTbHQ.png)
+
+### Contributing
+
+Install with `npm install`
+
+Build with `npm run build`. 
+To build, you must install [rollup.js](https://rollupjs.org/guide/en) globally, which you can do using `npm install -g rollup`
+
+### Features
+
+ - Shows a form notification when the form you're viewing is modified
+ - Shows the name of the user who modified the form in the notification
+ - Polls for form modifications at a specified interval
+ - Stops polling after half an hour if no other modifications are found
+
+ ### Backlog
+
+  - Support interactive notifications with button options to "refresh the form", "hide notification" or "don't show notification again on current form"
+  - Option to load a modal dialog instead of a notification banner using [Xrm.Navigation API](https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-navigation)
