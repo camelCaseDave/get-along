@@ -4,7 +4,7 @@ import Notify from "./Notify";
 
 export default class GetAlong {
     private static formContext: Xrm.FormContext;
-    private static initialModifiedOn: Date;
+    private static initialModifiedOn: Date | undefined;
 
     /**
      * Polls for modifications to the current form.
@@ -19,7 +19,7 @@ export default class GetAlong {
         }
 
         await this.getFormModifiedOn();
-
+        this.addResetOnSave();
         Poll.poll(() => this.checkIfModifiedOnHasChanged(), 1800 / timeout, timeout);
     }
 
@@ -55,13 +55,20 @@ export default class GetAlong {
      * Gets modified on from CRM server and returns true if it has changed.
      */
     private static async checkIfModifiedOnHasChanged(): Promise<boolean> {
+        this.initialModifiedOn = this.initialModifiedOn || await this.getFormModifiedOn();
         const latestModifiedOn = await Query.getLatestModifiedOn(GetAlong.formContext);
-        const modifiedOnHasChanged = latestModifiedOn > this.initialModifiedOn;
+        const modifiedOnHasChanged = this.initialModifiedOn && (latestModifiedOn > this.initialModifiedOn) ? true : false;
 
         if (modifiedOnHasChanged) {
             Notify.setFormNotification(GetAlong.formContext);
         }
 
         return modifiedOnHasChanged;
+    }
+
+    private static addResetOnSave(): void {
+        this.formContext.data.entity.addOnSave(() => {
+            this.initialModifiedOn = undefined;
+        });
     }
 }
