@@ -1,9 +1,12 @@
 export default class Query {
-    public static async getLastModifiedOn(executionContext: Xrm.FormContext, entityName?: string, entityId?: string): Promise<Date> {
-        entityId = entityId || executionContext.data.entity.getId();
-        entityName = entityName || executionContext.data.entity.getEntityName();
+    private static entityId: string;
+    private static entityName: string;
 
-        return Xrm.WebApi.retrieveRecord(entityName, entityId, "?$select=modifiedon").then(response => {
+    public static async getLatestModifiedOn(formContext: Xrm.FormContext, entityName?: string, entityId?: string): Promise<Date> {
+        this.entityId = this.entityId || entityId || formContext.data.entity.getId();
+        this.entityName = this.entityName || entityName || formContext.data.entity.getEntityName();
+
+        return Xrm.WebApi.retrieveRecord(this.entityName, this.entityId, "?$select=modifiedon").then(response => {
             return response.modifiedon;
         });
     }
