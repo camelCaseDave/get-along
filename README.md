@@ -40,7 +40,7 @@ Tick "Pass execution context as first parameter". Pass one parameter, a time in 
 
 If the record you have open is modified and saved by another user, you'll receive a notification.
 
-![alt text](https://i.imgur.com/wrhTbHQ.png)
+![alt text](https://i.imgur.com/jpjF7yD.gif)
 
 ### Considerations
 
