@@ -5,7 +5,8 @@ export default class Processor {
      */
     public static processModifiedOnDate(apiResponse): string {
         const modifiedOnDate = (apiResponse && apiResponse.modifiedon)
-            ? new Date(apiResponse.modifiedon).toLocaleString()
+            ? `${new Date(apiResponse.modifiedon).toDateString()},` +
+              ` ${new Date(apiResponse.modifiedon).toLocaleTimeString()}`
             : "the same time";
 
         return modifiedOnDate;

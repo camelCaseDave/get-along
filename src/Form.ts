@@ -51,7 +51,8 @@ export default class Form {
         this.latestModifiedBy = Processor.processModifiedByUser(apiResponse);
         this.latestModifiedOn = Processor.processModifiedOnDate(apiResponse);
 
-        const modifiedOnHasChanged = apiResponse.modifiedon && (apiResponse.modifiedon > this.initialModifiedOn!)
+        const modifiedOnHasChanged = apiResponse.modifiedon &&
+            (new Date(apiResponse.modifiedon) > new Date(this.initialModifiedOn!))
             ? true : false;
 
         if (modifiedOnHasChanged) {
