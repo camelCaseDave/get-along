@@ -1,5 +1,8 @@
-## Get Along in Dynamics 365
+## Get Along in Dynamics 365 
 Notifies you when someone else modifies the record you're viewing. Helps prevent conflicts so everyone can get along.
+
+<a href="https://travis-ci.com/camelCaseDave/get-along"><img
+            src="https://img.shields.io/travis/camelCaseDave/get-along/master.svg?style=flat-square" alt="Build Status"></a>
 
 Dynamics 365 encourages concurrent record usage between users. If two users modify and save the same record at the same time, the resulting record in the database is a combination of the two sets of changes. If the users modified the same field, the resulting value in the database comes from whichever user last saved the record.
 
