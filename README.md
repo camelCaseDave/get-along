@@ -1,10 +1,16 @@
 <p align="center"><a href="#" target="_blank" rel="noopener noreferrer">
             <img width="550" src="https://i.imgur.com/npeIQxD.png" alt="get-along.js"></a></p>
+
 <p align="center"><b>Get along</b> in Dynamics 365</p>
-<p align="center>
-<a href="https://travis-ci.com/camelCaseDave/get-along"><img src="https://img.shields.io/travis/camelCaseDave/get-along/master.svg?style=flat-square" alt="Build Status"></a>
-<a href="https://unpkg.com/get-along-xrm/dist/getalong.min.js"><img src="http://img.badgesize.io/https://unpkg.com/get-along-xrm/dist/getalong.min.js?compression=gzip&style=flat-square" alt="Gzip Size"></a>
-<a href="https://github.com/camelcasedave/get-along/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="License"></a>
+<br>
+<p align="center">
+    <a href="https://travis-ci.com/camelCaseDave/get-along"><img
+            src="https://img.shields.io/travis/camelCaseDave/get-along/master.svg?style=flat-square"
+            alt="Build Status"></a>
+    <a href="https://unpkg.com/get-along-xrm/dist/getalong.min.js"><img
+            src="https://unpkg.com/get-along-xrm/dist/getalong.min.js"><img src="http://img.badgesize.io/https://unpkg.com/get-along-xrm/dist/getalong.min.js?compression=gzip&style=flat-square" alt="Gzip Size"></a>
+    <a href="https://github.com/camelcasedave/get-along/blob/master/LICENSE"><img
+            src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="License"></a>    
 </p>
 
 > Get Along notifies you when someone else modifies the record you're viewing. Helps prevent conflicts so everyone can get along.
