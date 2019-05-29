@@ -1,6 +1,6 @@
-import Query from "./Query";
 import Notify from "./Notify";
 import Processor from "./Processor";
+import Query from "./Query";
 
 export default class Form {
     public formContext: Xrm.FormContext;
@@ -12,7 +12,7 @@ export default class Form {
         this.formContext = formContext;
     }
 
-     /**
+    /**
      * Returns true if the form type is not create or undefined.
      */
     public isValidForm(): boolean {
@@ -23,7 +23,7 @@ export default class Form {
             formType !== 1;
     }
 
-     /**
+    /**
      * Gets the form modified on date. Calls CRM API if modified on attribute is not on the form.
      */
     public async getFormModifiedOn(): Promise<Date | undefined> {
@@ -41,7 +41,6 @@ export default class Form {
         return modifiedOn;
     }
 
-    
     /**
      * Gets modified on from CRM server and returns true if it has changed.
      */
@@ -52,7 +51,8 @@ export default class Form {
         this.latestModifiedBy = Processor.processModifiedByUser(apiResponse);
         this.latestModifiedOn = Processor.processModifiedOnDate(apiResponse);
 
-        const modifiedOnHasChanged = apiResponse.modifiedon && (apiResponse.modifiedon > this.initialModifiedOn!) ? true : false;
+        const modifiedOnHasChanged = apiResponse.modifiedon && (apiResponse.modifiedon > this.initialModifiedOn!)
+            ? true : false;
 
         if (modifiedOnHasChanged) {
             Notify.setFormNotification(this.formContext, this.latestModifiedOn, this.latestModifiedBy);

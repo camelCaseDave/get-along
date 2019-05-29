@@ -1,8 +1,7 @@
-import Poll from "./Poll";
 import Form from "./Form";
+import Poll from "./Poll";
 
 export default class GetAlong {
-    private static form: Form;
 
     /**
      * Polls for modifications to the current form.
@@ -26,4 +25,5 @@ export default class GetAlong {
             console.error(`getalong.js has encountered an error. ${e}`);
         }
     }
+    private static form: Form;
 }

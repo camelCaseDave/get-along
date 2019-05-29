@@ -10,14 +10,12 @@ export default class Poll {
 
         const checkCondition = (resolve, reject) => {
             const callback = fn();
-            callback.then(response => {
-                if (response == true) {
+            callback.then((response) => {
+                if (response === true) {
                     resolve(response);
-                }
-                else if (Number(new Date()) < endTime) {
+                } else if (Number(new Date()) < endTime) {
                     setTimeout(checkCondition.bind(this), interval * 1000, resolve, reject);
-                }
-                else {
+                } else {
                     reject(console.log("GetAlong has been polling for 30 minutes and will stop now."));
                 }
             });
