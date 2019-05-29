@@ -7,8 +7,7 @@
     <a href="https://travis-ci.com/camelCaseDave/get-along"><img
             src="https://img.shields.io/travis/camelCaseDave/get-along/master.svg?style=flat-square"
             alt="Build Status"></a>
-    <a href="https://unpkg.com/get-along-xrm/dist/getalong.min.js"><img
-            src="https://unpkg.com/get-along-xrm/dist/getalong.min.js"><img src="http://img.badgesize.io/https://unpkg.com/get-along-xrm/dist/getalong.min.js?compression=gzip&style=flat-square" alt="Gzip Size"></a>
+    <a href="https://unpkg.com/get-along-xrm/dist/getalong.min.js"><img src="http://img.badgesize.io/https://unpkg.com/get-along-xrm/dist/getalong.min.js?compression=gzip&style=flat-square" alt="Gzip Size"></a>
     <a href="https://github.com/camelcasedave/get-along/blob/master/LICENSE"><img
             src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="License"></a>    
 </p>
