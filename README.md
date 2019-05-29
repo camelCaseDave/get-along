@@ -2,7 +2,6 @@
             <img width="550" src="https://i.imgur.com/npeIQxD.png" alt="get-along.js"></a></p>
 
 <p align="center"><b>Get along</b> in Dynamics 365</p>
-<br>
 <p align="center">
     <a href="https://travis-ci.com/camelCaseDave/get-along"><img
             src="https://img.shields.io/travis/camelCaseDave/get-along/master.svg?style=flat-square"
