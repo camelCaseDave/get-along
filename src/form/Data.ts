@@ -1,6 +1,7 @@
-import Processor from "../Processor";
-import Query from "../Query";
+import Processor from "../data/Processor";
+import Query from "../data/Query";
 
+/** Data of the record in CRM. */
 class Data {
     public initialModifiedOn: Date | undefined;
     public latestModifiedOn: string;
@@ -45,7 +46,7 @@ class Data {
             (new Date(apiResponse.modifiedon) > new Date(this.initialModifiedOn!))
             ? true : false;
 
-        if (modifiedOnHasChanged) {
+        if (modifiedOnHasChanged && notificationCallback) {
             notificationCallback();
         }
 

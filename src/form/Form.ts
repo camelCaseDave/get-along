@@ -1,24 +1,16 @@
-import Dialog from "../notification/Dialog";
-import Notification from "../notification/Notification";
-import IConfirmStrings from "../types/IConfirmStrings";
 import Data from "./Data";
 import Metadata from "./Metadata";
 
+/** A form in Dynamics 365 CE. */
 class Form {
     public data: Data;
-    public notifyUserCallback: () => void;
+    public formContext: Xrm.FormContext;
+    public metadata: Metadata;
 
-    private dialog: Dialog;
-    private formContext: Xrm.FormContext;
-    private metadata: Metadata;
-    private notification: Notification;
-
-    constructor(executionContext: Xrm.Page.EventContext, showDialog?: boolean, confirmStrings?: IConfirmStrings) {
+    constructor(executionContext: Xrm.Page.EventContext) {
         this.formContext = executionContext.getFormContext();
         this.data = new Data(this.formContext);
         this.metadata = new Metadata(this.formContext);
-        this.setDialog(showDialog, confirmStrings);
-        this.setNotification(showDialog);
     }
 
     /**
@@ -32,15 +24,6 @@ class Form {
     }
 
     /**
-     * Prevents form attributes from being submitted when the record is saved.
-     */
-    public preventSave(): void {
-        this.formContext.data.entity.attributes.forEach((attribute) => {
-            attribute.setSubmitMode("never");
-        });
-    }
-
-    /**
      * Returns true if the form type is not create or undefined.
      */
     public isValid(): boolean {
@@ -49,29 +32,6 @@ class Form {
         return formType !== undefined &&
             formType !== 0 &&
             formType !== 1;
-    }
-
-    private setDialog(showDialog?: boolean, confirmStrings?: IConfirmStrings): void {
-        if (showDialog === true && confirmStrings !== undefined) {
-            this.dialog = new Dialog(confirmStrings, this.formContext, this.metadata);
-            this.notifyUserCallback = () => {
-                this.preventSave();
-                this.dialog.callback();
-            };
-        } else {
-            console.error("Get Along has been configured incorrectly. Show dialog has been selected but no confirm strings have been passed.");
-        }
-    }
-
-    private setNotification(showDialog?: boolean): void {
-        if (showDialog === undefined || showDialog === false) {
-            const notificationText = `This form has been modified by ${this.data.latestModifiedBy} at ${this.data.latestModifiedOn}. Refresh the form to see latest changes.`;
-            this.notification = new Notification(notificationText, this.formContext);
-            this.notifyUserCallback = () => {
-                this.preventSave();
-                this.notification.callback();
-            };
-        }
     }
 }
 

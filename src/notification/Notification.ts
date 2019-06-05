@@ -1,28 +1,22 @@
-/** Form notification banner notifying user of a form conflict. */
-class Notification {
-    public callback: () => void;
+import IUserNotification from "../types/IUserNotification";
 
+/** Form notification banner notifying user of a form conflict. */
+class Notification implements IUserNotification {
     private formContext: Xrm.FormContext;
     private text: string;
 
     constructor(text: string, formContext: Xrm.FormContext) {
         this.formContext = formContext;
         this.text = text;
-        this.callback = this.getCallback();
     }
 
-    /**
-     * Sets a form notification to notify user of a form conflict.
-     */
-    public setFormNotification(): void {
-        this.formContext.ui.setFormNotification(
-            this.text,
-            "INFO",
-            "GetAlongNotification");
-    }
-
-    private getCallback(): () => void {
-        return () => this.setFormNotification();
+    /** Opens the notification, notifying user of a conflict. */
+    public open(): () => void {
+        return () =>
+            this.formContext.ui.setFormNotification(
+                this.text,
+                "INFO",
+                "GetAlongNotification");
     }
 }
 

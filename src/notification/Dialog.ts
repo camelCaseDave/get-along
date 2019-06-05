@@ -1,26 +1,37 @@
 import Metadata from "../form/Metadata";
 import IConfirmStrings from "../types/IConfirmStrings";
+import IUserNotification from "../types/IUserNotification";
 import DialogUi from "./DialogUi";
 
 /** Confirm dialog notifying user of a form conflict. */
-class Dialog {
-    public callback: () => void;
-
-    private confirmStrings: IConfirmStrings;
+class Dialog implements IUserNotification {
+    private formContext: Xrm.FormContext;
+    private metadata: Metadata;
     private ui: DialogUi;
 
     constructor(confirmStrings: IConfirmStrings, formContext: Xrm.FormContext, metadata: Metadata) {
-        this.confirmStrings = confirmStrings;
-        this.ui = new DialogUi();
-        this.callback = this.getCallback(formContext, metadata);
+        this.formContext = formContext;
+        this.metadata = metadata;
+        this.ui = new DialogUi(confirmStrings);
+    }
+
+    /** Opens the dialog, notifying user of a conflict. */
+    public open(): () => void {
+        return () => this.openCallback(() => {
+            this.metadata.preventSave(this.formContext);
+            Xrm.Navigation.openForm({ entityId: this.metadata.entityId, entityName: this.metadata.entityName });
+        }, () => {
+            this.metadata.preventSave(this.formContext);
+            this.formContext.ui.close();
+        });
     }
 
     /**
      * Opens a confirm dialog to notify user of a form conflict and prevent them from making further changes.
      */
-    public open(confirmCallback: () => void, cancelCallback: () => void): void {
+    private openCallback(confirmCallback: () => void, cancelCallback: () => void): void {
         const confirmOptions = { height: this.ui.defaultHeight, width: this.ui.defaultWidth };
-        const confirmStrings = this.getConfirmStringsWithDefaults();
+        const confirmStrings = this.ui.getConfirmStringsWithDefaults();
 
         Xrm.Navigation.openConfirmDialog(confirmStrings, confirmOptions).then((success) => {
             if (success.confirmed) {
@@ -29,26 +40,6 @@ class Dialog {
                 cancelCallback();
             }
         });
-    }
-
-    private getCallback(formContext: Xrm.FormContext, metadata: Metadata): () => void {
-        return () => this.open(() => {
-            Xrm.Navigation.openForm({ entityId: metadata.entityId, entityName: metadata.entityName });
-        }, () => {
-            formContext.ui.close();
-        });
-    }
-
-    private getConfirmStringsWithDefaults(): Xrm.Navigation.ConfirmStrings {
-        const confirmStringsWithDefaults: Xrm.Navigation.ConfirmStrings = {
-            cancelButtonLabel: this.ui.defaultCancelButtonLabel,
-            confirmButtonLabel: this.ui.defaultConfirmButtonLabel,
-            subtitle: this.confirmStrings.subtitle,
-            text: this.confirmStrings.text,
-            title: this.confirmStrings.title,
-        };
-
-        return confirmStringsWithDefaults;
     }
 }
 
