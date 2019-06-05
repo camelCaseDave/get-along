@@ -1,4 +1,5 @@
-export default class Poll {
+/** Handles function calls at a set time interval. */
+class Poll {
     /**
      * Polls a function every specified number of seconds until it returns true or timeout is reached.
      * @param fn callback Promise to poll.
@@ -10,6 +11,7 @@ export default class Poll {
 
         const checkCondition = (resolve, reject) => {
             const callback = fn();
+
             callback.then((response) => {
                 if (response === true) {
                     resolve(response);
@@ -24,3 +26,5 @@ export default class Poll {
         return new Promise(checkCondition);
     }
 }
+
+export default Poll;

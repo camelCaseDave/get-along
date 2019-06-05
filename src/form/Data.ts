@@ -1,32 +1,22 @@
-import Notify from "./Notify";
-import Processor from "./Processor";
-import Query from "./Query";
+import Processor from "../Processor";
+import Query from "../Query";
 
-export default class Form {
-    public formContext: Xrm.FormContext;
+class Data {
     public initialModifiedOn: Date | undefined;
     public latestModifiedOn: string;
     public latestModifiedBy: string;
 
+    private formContext: Xrm.FormContext;
+
     constructor(formContext: Xrm.FormContext) {
         this.formContext = formContext;
-    }
-
-    /**
-     * Returns true if the form type is not create or undefined.
-     */
-    public isValidForm(): boolean {
-        const formType: XrmEnum.FormType = this.formContext.ui.getFormType();
-
-        return formType !== undefined &&
-            formType !== 0 &&
-            formType !== 1;
+        this.addResetOnSave();
     }
 
     /**
      * Gets the form modified on date. Calls CRM API if modified on attribute is not on the form.
      */
-    public async getFormModifiedOn(): Promise<Date | undefined> {
+    public async getModifiedOn(): Promise<Date | undefined> {
         let modifiedOn: Date | undefined;
         const modifiedOnAttribute: Xrm.Attributes.DateAttribute = this.formContext.getAttribute("modifiedon");
 
@@ -42,10 +32,10 @@ export default class Form {
     }
 
     /**
-     * Gets modified on from CRM server and returns true if it has changed.
+     * Gets modified on from CRM server. Returns true if it has changed, and notifies the user.
      */
-    public async checkIfModifiedOnHasChanged(): Promise<boolean> {
-        this.initialModifiedOn = this.initialModifiedOn || await this.getFormModifiedOn();
+    public async checkIfModifiedOnHasChanged(notificationCallback: () => void): Promise<boolean> {
+        this.initialModifiedOn = this.initialModifiedOn || await this.getModifiedOn();
 
         const apiResponse = await Query.getLatestModifiedOn(this.formContext);
         this.latestModifiedBy = Processor.processModifiedByUser(apiResponse);
@@ -56,7 +46,7 @@ export default class Form {
             ? true : false;
 
         if (modifiedOnHasChanged) {
-            Notify.setFormNotification(this.formContext, this.latestModifiedOn, this.latestModifiedBy);
+            notificationCallback();
         }
 
         return modifiedOnHasChanged;
@@ -65,9 +55,11 @@ export default class Form {
     /**
      * Resets modified on cache when form is saved.
      */
-    public addResetOnSave(): void {
+    private addResetOnSave(): void {
         this.formContext.data.entity.addOnSave(() => {
             this.initialModifiedOn = undefined;
         });
     }
 }
+
+export default Data;

@@ -1,12 +1,11 @@
-export default class Query {
-
+/** Interacts directly with the Xrm Web API. */
+class Query {
     /**
      * Calls CRM API and returns the given entity's modified on date.
      * @param entityName schema name of the entity to query.
      * @param entityId id of the entity to query.
      */
-    public static async getLatestModifiedOn(formContext: Xrm.FormContext, entityName?: string,
-                                            entityId?: string): Promise<any> {
+    public static async getLatestModifiedOn(formContext: Xrm.FormContext, entityName?: string, entityId?: string): Promise<any> {
         this.entityId = this.entityId || entityId || formContext.data.entity.getId();
         this.entityName = this.entityName || entityName || formContext.data.entity.getEntityName();
 
@@ -15,6 +14,9 @@ export default class Query {
                 return response;
             });
     }
+
     private static entityId: string;
     private static entityName: string;
 }
+
+export default Query;

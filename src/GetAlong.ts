@@ -1,29 +1,44 @@
-import Form from "./Form";
+import Form from "./form/Form";
 import Poll from "./Poll";
+import IGetAlongConfig from "./types/IGetAlongConfig";
 
-export default class GetAlong {
+/** Notifies users when a record they're viewing is modified elsewhere. */
+class GetAlong {
+    /**
+     * Loads Get Along.
+     * @param executionContext passed by default from Dynamics CRM form.
+     * @param timeout duration in seconds to timeout between poll operations.
+     */
+    public static async load(executionContext: Xrm.Page.EventContext, config: IGetAlongConfig): Promise<void> {
+        try {
+            this.config = config;
+            this.executionContext = executionContext;
+            this.form = new Form(this.executionContext, config.confirmDialog, config.confirmStrings);
+
+            if (!this.form.isValid()) {
+                return;
+            }
+
+            await this.form.data.getModifiedOn();
+            await this.pollForModifications(this.form.notifyUserCallback);
+
+        } catch (e) {
+            console.error(`getalong.js has encountered an error. ${e}`);
+        }
+    }
+
+    private static config: IGetAlongConfig;
+    private static executionContext: Xrm.Page.EventContext;
+    private static form: Form;
 
     /**
      * Polls for modifications to the current form.
      * @param executionContext passed by default from Dynamics CRM form.
      * @param timeout duration in seconds to timeout between poll operations.
      */
-    public static async pollForModifications(executionContext: Xrm.Page.EventContext, timeout: number): Promise<void> {
-        try {
-            const formContext = executionContext.getFormContext();
-            this.form = new Form(formContext);
-
-            if (!this.form.isValidForm()) {
-                return;
-            }
-
-            await this.form.getFormModifiedOn();
-            this.form.addResetOnSave();
-
-            Poll.poll(() => this.form.checkIfModifiedOnHasChanged(), 1800 / timeout, timeout);
-        } catch (e) {
-            console.error(`getalong.js has encountered an error. ${e}`);
-        }
+    private static async pollForModifications(notificationCallback: () => void): Promise<void> {
+        Poll.poll(() => this.form.data.checkIfModifiedOnHasChanged(notificationCallback), 1800 / this.config.timeout, this.config.timeout);
     }
-    private static form: Form;
 }
+
+export default GetAlong;
