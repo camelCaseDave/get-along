@@ -43,9 +43,29 @@ Include it on the form you want to run it on (e.g. Account or Contact) by pressi
 
 #### 3. Register an OnLoad event handler on the form. 
 
-Tick "Pass execution context as first parameter". Pass one parameter, a time in seconds, to wait between polling events to check for form updates from another user.
+``` GetAlong.pollForConflicts ```
 
-![alt text](https://i.imgur.com/XFFfQzu.png)
+Tick "Pass execution context as first parameter". Pass one parameter, an object containing the information that `Get Along` needs:
+
+- `timeout`: duration in seconds to timeout between poll operations
+- `confirmDialog`: (optional) true to show a confirm dialog when a conflict is found, otherwise shows a form notification. False by default.
+- `confirmStrings`: optional, but required if `confirmDialog` is true. An object containing the strings to be used in the confirmation dialog.
+- `subtitle`: (optional) the subtitle to be displayed in the confirmation dialog.
+- `text`: the message to be displayed in the confirmation dialog.
+- `title`: (optional) the title to be displayed in the confirmation dialog.
+
+##### Sample:
+```
+{
+    "timeout": 1,
+    "confirmDialog": true,
+    "confirmStrings": { 
+        "subtitle": "Please refresh the form.",
+        "text": "This form has been modified by another user.",
+        "title": "Form conflict"
+    }
+}
+```
 
 #### 4. Test it out. 
 
