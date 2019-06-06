@@ -1,8 +1,19 @@
-## Get Along in Dynamics 365 
-Notifies you when someone else modifies the record you're viewing. Helps prevent conflicts so everyone can get along.
+<p align="center"><a href="#" target="_blank" rel="noopener noreferrer">
+            <img width="550" src="https://i.imgur.com/npeIQxD.png" alt="get-along.js"></a></p>
 
-<a href="https://travis-ci.com/camelCaseDave/get-along"><img
-            src="https://img.shields.io/travis/camelCaseDave/get-along/master.svg?style=flat-square" alt="Build Status"></a>
+<p align="center"><b>Get along</b> in Dynamics 365</p>
+<p align="center">
+    <a href="https://travis-ci.com/camelCaseDave/get-along"><img
+            src="https://img.shields.io/travis/camelCaseDave/get-along/master.svg?style=flat-square"
+            alt="Build Status"></a>
+    <a href="https://unpkg.com/get-along-xrm/dist/getalong.min.js"><img src="http://img.badgesize.io/https://unpkg.com/get-along-xrm/dist/getalong.min.js?compression=gzip&style=flat-square" alt="Gzip Size"></a>
+    <a href="https://github.com/camelcasedave/get-along/blob/master/LICENSE"><img
+            src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="License"></a>    
+</p>
+
+> Get Along notifies you when someone else modifies the record you're viewing. Helps prevent conflicts so everyone can get along.
+
+---
 
 Dynamics 365 encourages concurrent record usage between users. If two users modify and save the same record at the same time, the resulting record in the database is a combination of the two sets of changes. If the users modified the same field, the resulting value in the database comes from whichever user last saved the record.
 
@@ -40,7 +51,7 @@ Tick "Pass execution context as first parameter". Pass one parameter, a time in 
 
 If the record you have open is modified and saved by another user, you'll receive a notification.
 
-![alt text](https://i.imgur.com/wrhTbHQ.png)
+![alt text](https://i.imgur.com/jpjF7yD.gif)
 
 ### Considerations
 
@@ -57,3 +68,7 @@ To build, you must install [rollup.js](https://rollupjs.org/guide/en) globally, 
 
   - Support interactive notifications with button options to "refresh the form", "hide notification" or "don't show notification again on current form"
   - Option to load a modal dialog instead of a notification banner using [Xrm.Navigation API](https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-navigation)
+  
+---
+
+> Photo credit: [Connor Wilkins](https://unsplash.com/photos/4dY4gxT9WOA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
