@@ -16,8 +16,8 @@ class Dialog implements IUserNotification {
     }
 
     /** Opens the dialog, notifying user of a conflict. */
-    public open(): () => void {
-        return () => this.openCallback(() => {
+    public open(): void {
+        this.openCallback(() => {
             this.metadata.preventSave(this.formContext);
             Xrm.Navigation.openForm({ entityId: this.metadata.entityId, entityName: this.metadata.entityName });
         }, () => {

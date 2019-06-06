@@ -11,12 +11,11 @@ class Notification implements IUserNotification {
     }
 
     /** Opens the notification, notifying user of a conflict. */
-    public open(): () => void {
-        return () =>
-            this.formContext.ui.setFormNotification(
-                this.text,
-                "INFO",
-                "GetAlongNotification");
+    public open(): void {
+        this.formContext.ui.setFormNotification(
+            this.text,
+            "INFO",
+            "GetAlongNotification");
     }
 }
 
