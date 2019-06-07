@@ -87,11 +87,11 @@ To notify users of a change with a dialog box, pass an object as your config par
 
 ![alt-text](https://i.imgur.com/DuPzEZM.gif)
 
-### Considerations
+### 2. Considerations
 
  - *API Limits*: the number of API requests made by a user cannot exceed 4000 within a 5 minute timeframe, or 13 requests per second. `get-along` uses polling, which sends one API request per given, configurable time interval. Configure the time interval so that users do not reach the API limit. Consider that users often open multiple browser tabs.
 
-### Contributing
+### 3. Contributing
 
 Install with `npm install`
 
