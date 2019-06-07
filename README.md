@@ -17,7 +17,7 @@
 
 Dynamics 365 encourages concurrent record usage between users. If two users modify and save the same record at the same time, the resulting record in the database is a combination of the two sets of changes. If the users modified the same field, the resulting value in the database comes from whichever user last saved the record.
 
-This isn't always desired behaviour. 
+This isn't always desired behaviour;
 * A process within the business might dictate that only one user should be updating a record at one time.
 * Form logic might execute on update of certain fields, that all users should be made aware of. Because form logic is client-side, users will not see this change unless they're notified to refresh the record.
 * Users may be used to notification behaviour if they use other collaboration tools such as Microsoft Excel or [Confluence](https://www.atlassian.com/software/confluence).
@@ -32,17 +32,17 @@ You can also customise whether to notify users with either a simple, non-intrusi
 
 To poll for changes, add `getalong.min.js` as a form library, and register an event handler on load of the form:
 
-* function: `GetAlong.pollForConflicts`
-* tick "pass `executionContext` as first parameter"
-* pass config parameter as described below
+* Function: `GetAlong.pollForConflicts`
+* Tick "pass `executionContext` as first parameter".
+* Pass config parameter as described below.
 
 #### On-demand
 
 To check for changes on-demand, add `getalong.min.js` as a form library, and register an event handler on change of a field, on save of the form or include as part of a ribbon button command:
 
-* function: `GetAlong.checkForConflicts`
-* tick "pass `executionContext` as first parameter"
-* pass config paramater as described below
+* Function: `GetAlong.checkForConflicts`
+* Tick "pass `executionContext` as first parameter".
+* Pass config paramater as described below.
 
 #### Notification
 
@@ -60,7 +60,7 @@ To notify users of a change with a simple notification, just pass an object with
 
 To notify users of a change with a dialog box, pass an object as your config parameter:
 
-* `timeout`: duration in seconds to timeout between poll operations
+* `timeout`: duration in seconds to timeout between poll operations.
 * `confirmDialog`: (optional) true to show a confirm dialog when a conflict is found, otherwise shows a form notification. False by default.
 * `confirmStrings`: optional, but required if confirmDialog is true. An object containing the strings to be used in the confirmation dialog.
 * `subtitle`: (optional) the subtitle to be displayed in the confirmation dialog.
