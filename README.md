@@ -46,11 +46,11 @@ To check for changes on-demand, add `getalong.min.js` as a form library, and reg
 
 #### Notification
 
-To notify users of a change with a simple notification, just pass an object with the `timtout` property; a number which specifies how long `Get Along` should `timeOut` when polling. If you're running on-demand, you don't need to pass anything.
+To notify users of a change with a simple notification, just pass an object with the `timeout` property; a number which specifies how long `Get Along` should wait between polls. If you're running on-demand, you don't need to pass anything.
 
 ##### Example
 
-![alt-text](https://i.imgur.com/DuPzEZM.gif)
+![alt-text](https://i.imgur.com/k5fpFeJ.png)
 
 ##### Demo
 
@@ -67,6 +67,10 @@ To notify users of a change with a dialog box, pass an object as your config par
 * `text`: the message to be displayed in the confirmation dialog.
 * `title`: (optional) the title to be displayed in the confirmation dialog.
 
+##### Example
+
+![alt-text](https://i.imgur.com/rvAQ3wn.png)
+
 ```js
 {
     "timeout": 1,
@@ -78,10 +82,6 @@ To notify users of a change with a dialog box, pass an object as your config par
     }
 }
 ```
-
-##### Example
-
-![alt-text](https://i.imgur.com/rvAQ3wn.png)
 
 ##### Demo
 
