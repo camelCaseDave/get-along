@@ -1,15 +1,17 @@
 import IUserNotification from "../types/IUserNotification";
+import Form from "../form/form";
+import Data from "../form/data";
 
 /** Form notification banner notifying user of a form conflict. */
 class Notification implements IUserNotification {
     public isOpen: boolean = false;
 
+    private data: Data;
     private formContext: Xrm.FormContext;
-    private text: string;
 
-    constructor(text: string, formContext: Xrm.FormContext) {
-        this.formContext = formContext;
-        this.text = text;
+    constructor(form: Form) {
+        this.data = form.data;
+        this.formContext = form.formContext;
     }
 
     /** Opens the notification, notifying user of a conflict. */
@@ -17,10 +19,15 @@ class Notification implements IUserNotification {
         if (!this.isOpen) {
             this.isOpen = true;
             this.formContext.ui.setFormNotification(
-                this.text,
+                this.getNotificationText(),
                 "INFO",
                 "GetAlongNotification");
         }
+    }
+
+    private getNotificationText(): string {
+        const text = `This form has been modified by ${this.data.latestModifiedBy} at ${this.data.latestModifiedOn}. Refresh the form to see latest changes.`;
+        return text;
     }
 }
 

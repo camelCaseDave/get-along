@@ -4,7 +4,7 @@ import { uglify } from "rollup-plugin-uglify";
 
 export default [
     {
-        input: "src/GetAlong.ts",
+        input: "src/getAlong.ts",
         output: {
             name: "GetAlong",
             file: "dist/getalong.js",
@@ -17,7 +17,7 @@ export default [
         ],
     },
     {
-        input: "src/GetAlong.ts",
+        input: "src/getAlong.ts",
         output: {
             name: "GetAlong",
             file: "dist/getalong.min.js",

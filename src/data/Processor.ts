@@ -1,6 +1,5 @@
 /** Collection of functions used for making data human-readable. */
 class Processor {
-
     /**
      * Returns modifiedon date as a readable, user locale string.
      * @param apiResponse CRM API response that includes "modifiedon" column.

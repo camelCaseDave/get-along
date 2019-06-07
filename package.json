@@ -1,6 +1,6 @@
 {
   "name": "get-along-xrm",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Notifies you when someone else modifies the form you're viewing. Helps prevent conflicts so everyone can get along.",
   "main": "dist/getalong.js",
   "directories": {

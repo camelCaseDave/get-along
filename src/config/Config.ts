@@ -10,7 +10,7 @@ class Config {
     private form: Form;
 
     constructor(config: IGetAlongConfig, form: Form) {
-        this.config = config;
+        this.config = this.parseConfig(config);
         this.form = form;
     }
 
@@ -31,12 +31,21 @@ class Config {
     }
 
     private getNotification(): Notification {
-        const notificationText = `This form has been modified by ${this.form.data.latestModifiedBy} at ${this.form.data.latestModifiedOn}. Refresh the form to see latest changes.`;
-        return new Notification(notificationText, this.form.formContext);
+        return new Notification(this.form);
     }
 
     private getDialog(): Dialog {
         return new Dialog(this.config.confirmStrings!, this.form.formContext, this.form.metadata);
+    }
+
+    private parseConfig(config: IGetAlongConfig): IGetAlongConfig {
+        if (typeof config === "number") {
+            return {
+                timeout: config,
+            };
+        } else {
+            return config;
+        }
     }
 }
 
