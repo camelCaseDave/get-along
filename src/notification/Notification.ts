@@ -2,6 +2,8 @@ import IUserNotification from "../types/IUserNotification";
 
 /** Form notification banner notifying user of a form conflict. */
 class Notification implements IUserNotification {
+    public isOpen: boolean = false;
+
     private formContext: Xrm.FormContext;
     private text: string;
 
@@ -12,10 +14,13 @@ class Notification implements IUserNotification {
 
     /** Opens the notification, notifying user of a conflict. */
     public open(): void {
-        this.formContext.ui.setFormNotification(
-            this.text,
-            "INFO",
-            "GetAlongNotification");
+        if (!this.isOpen) {
+            this.isOpen = true;
+            this.formContext.ui.setFormNotification(
+                this.text,
+                "INFO",
+                "GetAlongNotification");
+        }
     }
 }
 

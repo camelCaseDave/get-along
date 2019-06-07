@@ -1,5 +1,5 @@
 import IGetAlongConfig from "../types/IGetAlongConfig";
-import MESSAGES from "./Messages";
+import MESSAGES from "./messages";
 
 /** Validates the config passed by CRM form properties. */
 class ConfigValidator {
@@ -9,10 +9,10 @@ class ConfigValidator {
     constructor(config: IGetAlongConfig) {
         this.config = config;
         this.validationRules = [
-            this.configIsDefined,
-            this.dialogSettingsAreValid,
-            this.timeoutIsDefined,
-            this.timeoutIsValid,
+            this.configIsDefined.bind(this),
+            this.dialogSettingsAreValid.bind(this),
+            this.timeoutIsDefined.bind(this),
+            this.timeoutIsValid.bind(this),
         ];
     }
 

@@ -1,5 +1,5 @@
-import Data from "./Data";
-import Metadata from "./Metadata";
+import Data from "./data";
+import Metadata from "./metadata";
 
 /** A form in Dynamics 365 CE. */
 class Form {

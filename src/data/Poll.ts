@@ -1,4 +1,4 @@
-import MESSAGES from "../config/Messages";
+import MESSAGES from "../config/messages";
 
 /** Handles function calls at a set time interval. */
 class Poll {

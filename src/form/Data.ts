@@ -1,5 +1,5 @@
-import Processor from "../data/Processor";
-import Query from "../data/Query";
+import Processor from "../data/processor";
+import Query from "../data/query";
 
 /** Data of the record in CRM. */
 class Data {

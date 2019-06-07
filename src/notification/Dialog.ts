@@ -1,10 +1,12 @@
-import Metadata from "../form/Metadata";
+import Metadata from "../form/metadata";
 import IConfirmStrings from "../types/IConfirmStrings";
 import IUserNotification from "../types/IUserNotification";
-import DialogUi from "./DialogUi";
+import DialogUi from "./dialogUi";
 
 /** Confirm dialog notifying user of a form conflict. */
 class Dialog implements IUserNotification {
+    public isOpen: boolean = false;
+
     private formContext: Xrm.FormContext;
     private metadata: Metadata;
     private ui: DialogUi;
@@ -17,13 +19,17 @@ class Dialog implements IUserNotification {
 
     /** Opens the dialog, notifying user of a conflict. */
     public open(): void {
-        this.openCallback(() => {
-            this.metadata.preventSave(this.formContext);
-            Xrm.Navigation.openForm({ entityId: this.metadata.entityId, entityName: this.metadata.entityName });
-        }, () => {
-            this.metadata.preventSave(this.formContext);
-            this.formContext.ui.close();
-        });
+        if (!this.isOpen) {
+            this.isOpen = true;
+
+            this.openCallback(() => {
+                this.metadata.preventSave(this.formContext);
+                Xrm.Navigation.openForm({ entityId: this.metadata.entityId, entityName: this.metadata.entityName });
+            }, () => {
+                this.metadata.preventSave(this.formContext);
+                this.formContext.ui.close();
+            });
+        }
     }
 
     /**
