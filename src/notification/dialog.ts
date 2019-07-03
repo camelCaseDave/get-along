@@ -24,7 +24,7 @@ class Dialog implements IUserNotification {
 
             this.openCallback(() => {
                 this.metadata.preventSave(this.formContext);
-                Xrm.Navigation.openForm({ entityId: this.metadata.entityId, entityName: this.metadata.entityName });
+                window.parent.location.reload(false);
             }, () => {
                 this.metadata.preventSave(this.formContext);
                 this.formContext.ui.close();

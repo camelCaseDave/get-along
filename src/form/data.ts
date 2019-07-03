@@ -15,31 +15,25 @@ class Data {
     }
 
     /**
-     * Gets the form modified on date. Calls CRM API if modified on attribute is not on the form.
+     * Asynchronously initialises data, caching initial modified on.
      */
-    public async getModifiedOn(): Promise<Date | undefined> {
-        let modifiedOn: Date | undefined;
-        const modifiedOnAttribute: Xrm.Attributes.DateAttribute = this.formContext.getAttribute("modifiedon");
+    public async init() {
+        const apiResponse = await Query.getLatestModifiedOn(this.formContext);
+        this.cacheApiResponse(apiResponse);
 
-        if (modifiedOnAttribute) {
-            modifiedOn = modifiedOnAttribute.getValue();
-        } else {
-            const apiResponse = await Query.getLatestModifiedOn(this.formContext);
-            modifiedOn = apiResponse.modifiedon;
-        }
-
-        this.initialModifiedOn = modifiedOn;
-        return modifiedOn;
+        this.initialModifiedOn = apiResponse.modifiedon;
     }
 
     /**
      * Gets modified on from CRM server. Returns true if it has changed, and notifies the user.
      */
     public async checkIfModifiedOnHasChanged(notificationCallback: () => void): Promise<boolean> {
-        this.initialModifiedOn = this.initialModifiedOn || await this.getModifiedOn();
+        if (!this.initialModifiedOn) {
+            await this.init();
+            return false;
+        }
 
         const apiResponse = await Query.getLatestModifiedOn(this.formContext);
-        this.cacheApiResponse(apiResponse);
 
         const modifiedOnHasChanged = apiResponse.modifiedon &&
             (new Date(apiResponse.modifiedon) > new Date(this.initialModifiedOn!))
@@ -50,6 +44,7 @@ class Data {
         }
 
         return modifiedOnHasChanged;
+
     }
 
     /**

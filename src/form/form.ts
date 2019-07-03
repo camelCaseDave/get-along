@@ -14,6 +14,13 @@ class Form {
     }
 
     /**
+     * Asyncronously initialises form data.
+     */
+    public async init() {
+        this.data.init();
+    }
+
+    /**
      * Reloads the form.
      */
     public reload(): void {

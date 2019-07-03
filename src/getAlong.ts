@@ -12,7 +12,7 @@ class GetAlong {
     /** Checks for conflicts and notifies the user if any are found. */
     public static async checkForConflicts(executionContext: Xrm.Page.EventContext, config: IGetAlongConfig): Promise<void> {
         try {
-            const successfulInit: boolean = GetAlong.init(executionContext, config);
+            const successfulInit: boolean = await GetAlong.init(executionContext, config);
 
             if (!successfulInit) {
                 return;
@@ -31,13 +31,12 @@ class GetAlong {
      */
     public static async pollForConflicts(executionContext: Xrm.Page.EventContext, config: IGetAlongConfig): Promise<void> {
         try {
-            const successfulInit: boolean = GetAlong.init(executionContext, config);
+            const successfulInit: boolean = await GetAlong.init(executionContext, config);
 
             if (!successfulInit) {
                 return;
             }
 
-            await this.form.data.getModifiedOn();
             await Poll.poll(() => this.form.data.checkIfModifiedOnHasChanged(GetAlong.userNotification.open.bind(GetAlong.userNotification)), 1800 / config.timeout, config.timeout);
         } catch (e) {
             console.error(`${MESSAGES.generic} ${e}`);
@@ -49,15 +48,17 @@ class GetAlong {
     private static userNotification: IUserNotification;
 
     /** Initialises Get Along. Returns true if successful, otherwise false. */
-    private static init(executionContext: Xrm.Page.EventContext, config: IGetAlongConfig): boolean {
+    private static async init(executionContext: Xrm.Page.EventContext, config: IGetAlongConfig): Promise<boolean> {
         GetAlong.form = GetAlong.form || new Form(executionContext);
-        GetAlong.config = GetAlong.config || new Config(config, GetAlong.form);
+        await GetAlong.form.init();
 
         if (!GetAlong.form.isValid()) {
             console.log(MESSAGES.formIsInvalid);
 
             return false;
         }
+
+        GetAlong.config = GetAlong.config || new Config(config, GetAlong.form);
 
         if (!GetAlong.config.isValid()) {
             console.log(MESSAGES.configIsInvalid);
