@@ -5,7 +5,8 @@ class Poll {
     /*
      * True if poll is active, otherwise false.
      */
-    public enabled: boolean;
+    public static enabled: boolean = true;
+
     /**
      * Polls a function every specified number of seconds until it returns true or timeout is reached.
      * @param fn callback Promise to poll.
@@ -17,23 +18,32 @@ class Poll {
         timeout: number,
         interval: number
     ): Promise<any> {
+        if (!this.enabled) {
+            console.log(MESSAGES.pollingDisabled);
+            return;
+        }
+
         const endTime = Number(new Date()) + timeout * 1000;
 
         const checkCondition = (resolve, reject) => {
             const callback = fn();
 
             callback.then(response => {
-                if (response === true) {
-                    resolve(response);
-                } else if (Number(new Date()) < endTime) {
-                    setTimeout(
-                        checkCondition.bind(this),
-                        interval * 1000,
-                        resolve,
-                        reject
-                    );
+                if (!this.enabled) {
+                    reject(console.log(MESSAGES.pollingDisabled));
                 } else {
-                    reject(console.log(MESSAGES.pollingTimeout));
+                    if (response === true) {
+                        resolve(response);
+                    } else if (Number(new Date()) < endTime) {
+                        setTimeout(
+                            checkCondition.bind(this),
+                            interval * 1000,
+                            resolve,
+                            reject
+                        );
+                    } else {
+                        reject(console.log(MESSAGES.pollingTimeout));
+                    }
                 }
             });
         };

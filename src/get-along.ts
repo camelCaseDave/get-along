@@ -1,24 +1,32 @@
-import Config from "./config/config";
-import MESSAGES from "./config/messages";
-import Poll from "./data/poll";
-import Form from "./form/form";
-import IGetAlongConfig from "./types/get-along-config";
-import IUserNotification from "./types/user-notification";
+import Config from './config/config';
+import MESSAGES from './config/messages';
+import Poll from './data/poll';
+import Form from './form/form';
+import IGetAlongConfig from './types/get-along-config';
+import IUserNotification from './types/user-notification';
 
 /**
  * Notifies users when a record they're viewing is modified elsewhere.
  */
 class GetAlong {
     /** Checks for conflicts and notifies the user if any are found. */
-    public static async checkForConflicts(executionContext: Xrm.Page.EventContext, config: IGetAlongConfig): Promise<void> {
+    public static async checkForConflicts(
+        executionContext: Xrm.Page.EventContext,
+        config: IGetAlongConfig
+    ): Promise<void> {
         try {
-            const successfulInit: boolean = await GetAlong.init(executionContext, config);
+            const successfulInit: boolean = await GetAlong.init(
+                executionContext,
+                config
+            );
 
             if (!successfulInit) {
                 return;
             }
 
-            GetAlong.form.data.checkIfModifiedOnHasChanged(GetAlong.userNotification.open.bind(GetAlong.userNotification));
+            GetAlong.form.data.checkIfModifiedOnHasChanged(
+                GetAlong.userNotification.open.bind(GetAlong.userNotification)
+            );
         } catch (e) {
             console.error(`${MESSAGES.generic} ${e}`);
         }
@@ -29,18 +37,40 @@ class GetAlong {
      * @param executionContext passed by default from Dynamics CRM form.
      * @param timeout duration in seconds to timeout between poll operations.
      */
-    public static async pollForConflicts(executionContext: Xrm.Page.EventContext, config: IGetAlongConfig): Promise<void> {
+    public static async pollForConflicts(
+        executionContext: Xrm.Page.EventContext,
+        config: IGetAlongConfig
+    ): Promise<void> {
         try {
-            const successfulInit: boolean = await GetAlong.init(executionContext, config);
+            const successfulInit: boolean = await GetAlong.init(
+                executionContext,
+                config
+            );
 
             if (!successfulInit) {
                 return;
             }
 
-            await Poll.poll(() => this.form.data.checkIfModifiedOnHasChanged(GetAlong.userNotification.open.bind(GetAlong.userNotification)), 1800 / config.timeout, config.timeout);
+            await Poll.poll(
+                () =>
+                    this.form.data.checkIfModifiedOnHasChanged(
+                        GetAlong.userNotification.open.bind(
+                            GetAlong.userNotification
+                        )
+                    ),
+                1800 / config.timeout,
+                config.timeout
+            );
         } catch (e) {
             console.error(`${MESSAGES.generic} ${e}`);
         }
+    }
+
+    /**
+     * Disables polling for conflicts, if it is running.
+     */
+    public static disablePoll(): void {
+        Poll.enabled = false;
     }
 
     private static config: Config;
@@ -48,7 +78,10 @@ class GetAlong {
     private static userNotification: IUserNotification;
 
     /** Initialises Get Along. Returns true if successful, otherwise false. */
-    private static async init(executionContext: Xrm.Page.EventContext, config: IGetAlongConfig): Promise<boolean> {
+    private static async init(
+        executionContext: Xrm.Page.EventContext,
+        config: IGetAlongConfig
+    ): Promise<boolean> {
         GetAlong.form = GetAlong.form || new Form(executionContext);
         await GetAlong.form.init();
 
@@ -66,7 +99,8 @@ class GetAlong {
             return false;
         }
 
-        GetAlong.userNotification = GetAlong.userNotification || GetAlong.config.getUserNotification();
+        GetAlong.userNotification =
+            GetAlong.userNotification || GetAlong.config.getUserNotification();
         return true;
     }
 }

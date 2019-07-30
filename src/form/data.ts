@@ -1,5 +1,6 @@
 import Processor from '../data/processor';
 import Query from '../data/query';
+import Poll from '../data/poll';
 
 /** Data of the record in CRM. */
 class Data {
@@ -17,11 +18,12 @@ class Data {
     /**
      * Asynchronously initialises data, caching initial modified on.
      */
-    public async init() {
+    public async init(): Promise<void> {
         const apiResponse = await Query.getLatestModifiedOn(this.formContext);
         this.cacheApiResponse(apiResponse);
 
         this.initialModifiedOn = apiResponse.modifiedon;
+        Poll.enabled = true;
     }
 
     /**

@@ -4,7 +4,7 @@ class Processor {
      * Returns modifiedon date as a readable, user locale string.
      * @param apiResponse CRM API response that includes "modifiedon" column.
      */
-    public static processModifiedOnDate(apiResponse): string {
+    public static processModifiedOnDate(apiResponse: any): string {
         const modifiedOnDate =
             apiResponse && apiResponse.modifiedon
                 ? `${new Date(apiResponse.modifiedon).toDateString()},` +
@@ -18,7 +18,7 @@ class Processor {
      * Returns modified by user's full name.
      * @param apiResponse CRM API response that includes expanded "modifiedby.fullname" column.
      */
-    public static processModifiedByUser(apiResponse): string {
+    public static processModifiedByUser(apiResponse: any): string {
         const modifiedByUser =
             apiResponse &&
             apiResponse.modifiedby &&
