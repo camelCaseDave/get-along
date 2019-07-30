@@ -1,4 +1,4 @@
-import IGetAlongConfig from "../types/IGetAlongConfig";
+import IGetAlongConfig from "../types/get-along-config";
 import MESSAGES from "./messages";
 
 /** Validates the config passed by CRM form properties. */

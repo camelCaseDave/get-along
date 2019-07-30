@@ -2,8 +2,8 @@ import Config from "./config/config";
 import MESSAGES from "./config/messages";
 import Poll from "./data/poll";
 import Form from "./form/form";
-import IGetAlongConfig from "./types/IGetAlongConfig";
-import IUserNotification from "./types/IUserNotification";
+import IGetAlongConfig from "./types/get-along-config";
+import IUserNotification from "./types/user-notification";
 
 /**
  * Notifies users when a record they're viewing is modified elsewhere.

@@ -1,7 +1,7 @@
-import IConfirmStrings from "./IConfirmStrings";
+import ConfirmStrings from "./confirm-strings";
 
 /** Configuration passed from the Dynamics 365 form to make GetAlong run. */
-interface IGetAlongConfig {
+interface GetAlongConfig {
     /** Duration in seconds to timeout between poll operations. */
     timeout: number;
 
@@ -9,7 +9,7 @@ interface IGetAlongConfig {
     confirmDialog?: boolean;
 
     /** Required if {@param confirmDialog is true}. The strings to be used in the confirmation dialog. */
-    confirmStrings?: IConfirmStrings;
+    confirmStrings?: ConfirmStrings;
 }
 
-export default IGetAlongConfig;
+export default GetAlongConfig;

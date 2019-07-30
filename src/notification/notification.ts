@@ -1,4 +1,4 @@
-import IUserNotification from "../types/IUserNotification";
+import IUserNotification from "../types/user-notification";
 import Form from "../form/form";
 import Data from "../form/data";
 

@@ -1,4 +1,4 @@
-interface IUserNotification {
+interface UserNotification {
     /** True if the user notification is open. */
     isOpen: boolean;
 
@@ -6,4 +6,4 @@ interface IUserNotification {
     open(): void;
 }
 
-export default IUserNotification;
+export default UserNotification;

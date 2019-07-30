@@ -1,7 +1,7 @@
 import Metadata from "../form/metadata";
-import IConfirmStrings from "../types/IConfirmStrings";
-import IUserNotification from "../types/IUserNotification";
-import DialogUi from "./dialogUi";
+import IConfirmStrings from "../types/confirm-strings";
+import IUserNotification from "../types/user-notification";
+import DialogUi from "./dialog-ui";
 
 /** Confirm dialog notifying user of a form conflict. */
 class Dialog implements IUserNotification {

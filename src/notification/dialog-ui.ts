@@ -1,4 +1,4 @@
-import IConfirmStrings from "../types/IConfirmStrings";
+import IConfirmStrings from "../types/confirm-strings";
 
 /** Ui of the form dialog. */
 class DialogUi {

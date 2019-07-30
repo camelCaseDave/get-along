@@ -1,9 +1,9 @@
 import Form from "../form/form";
 import Dialog from "../notification/dialog";
 import Notification from "../notification/notification";
-import IGetAlongConfig from "../types/IGetAlongConfig";
-import IUserNotification from "../types/IUserNotification";
-import ConfigValidator from "./configValidator";
+import IGetAlongConfig from "../types/get-along-config";
+import IUserNotification from "../types/user-notification";
+import ConfigValidator from "./config-validator";
 
 class Config {
     private config: IGetAlongConfig;
