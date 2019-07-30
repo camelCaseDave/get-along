@@ -1,5 +1,5 @@
-import IGetAlongConfig from "../types/get-along-config";
-import MESSAGES from "./messages";
+import IGetAlongConfig from '../types/get-along-config';
+import MESSAGES from './messages';
 
 /** Validates the config passed by CRM form properties. */
 class ConfigValidator {
@@ -18,7 +18,9 @@ class ConfigValidator {
 
     /** Returns true if the config is valid, otherwise false. */
     public isValid(): boolean {
-        const isValid = this.validationRules.every((fn: () => boolean) => fn() === true);
+        const isValid = this.validationRules.every(
+            (fn: () => boolean) => fn() === true
+        );
         return isValid;
     }
 
@@ -32,7 +34,10 @@ class ConfigValidator {
     }
 
     private dialogSettingsAreValid(): boolean {
-        if (this.config.confirmDialog === true && this.config.confirmStrings === undefined) {
+        if (
+            this.config.confirmDialog === true &&
+            this.config.confirmStrings === undefined
+        ) {
             console.error(MESSAGES.confirmStringsNotSpecified);
             return false;
         } else {

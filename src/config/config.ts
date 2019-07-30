@@ -1,9 +1,9 @@
-import Form from "../form/form";
-import Dialog from "../notification/dialog";
-import Notification from "../notification/notification";
-import IGetAlongConfig from "../types/get-along-config";
-import IUserNotification from "../types/user-notification";
-import ConfigValidator from "./config-validator";
+import Form from '../form/form';
+import Dialog from '../notification/dialog';
+import Notification from '../notification/notification';
+import IGetAlongConfig from '../types/get-along-config';
+import IUserNotification from '../types/user-notification';
+import ConfigValidator from './config-validator';
 
 class Config {
     private config: IGetAlongConfig;
@@ -16,8 +16,12 @@ class Config {
 
     /** Derives the user notification, either a form notification or a dialog, from config passed from the CRM form properties. */
     public getUserNotification(): IUserNotification {
-        const isUseDialogSelected = this.config.confirmDialog === true && this.config.confirmStrings !== undefined;
-        const userNotification = isUseDialogSelected ? this.getDialog() : this.getNotification();
+        const isUseDialogSelected =
+            this.config.confirmDialog === true &&
+            this.config.confirmStrings !== undefined;
+        const userNotification = isUseDialogSelected
+            ? this.getDialog()
+            : this.getNotification();
 
         return userNotification;
     }
@@ -35,11 +39,15 @@ class Config {
     }
 
     private getDialog(): Dialog {
-        return new Dialog(this.config.confirmStrings!, this.form.formContext, this.form.metadata);
+        return new Dialog(
+            this.config.confirmStrings!,
+            this.form.formContext,
+            this.form.metadata
+        );
     }
 
     private parseConfig(config: IGetAlongConfig): IGetAlongConfig {
-        if (typeof config === "number") {
+        if (typeof config === 'number') {
             return {
                 timeout: config,
             };

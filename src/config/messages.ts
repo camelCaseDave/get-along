@@ -1,4 +1,4 @@
-const projectName = "getalong.js";
+const projectName = 'getalong.js';
 const configIsInvalid = `${projectName} config is invalid.`;
 
 const MESSAGES = {

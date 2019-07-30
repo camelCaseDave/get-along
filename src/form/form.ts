@@ -1,5 +1,5 @@
-import Data from "./data";
-import Metadata from "./metadata";
+import Data from './data';
+import Metadata from './metadata';
 
 /** A form in Dynamics 365 CE. */
 class Form {
@@ -36,9 +36,7 @@ class Form {
     public isValid(): boolean {
         const formType: XrmEnum.FormType = this.formContext.ui.getFormType();
 
-        return formType !== undefined &&
-            formType !== 0 &&
-            formType !== 1;
+        return formType !== undefined && formType !== 0 && formType !== 1;
     }
 }
 

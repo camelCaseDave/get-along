@@ -1,6 +1,6 @@
-import IUserNotification from "../types/user-notification";
-import Form from "../form/form";
-import Data from "../form/data";
+import IUserNotification from '../types/user-notification';
+import Form from '../form/form';
+import Data from '../form/data';
 
 /** Form notification banner notifying user of a form conflict. */
 class Notification implements IUserNotification {
@@ -20,8 +20,9 @@ class Notification implements IUserNotification {
             this.isOpen = true;
             this.formContext.ui.setFormNotification(
                 this.getNotificationText(),
-                "INFO",
-                "GetAlongNotification");
+                'INFO',
+                'GetAlongNotification'
+            );
         }
     }
 

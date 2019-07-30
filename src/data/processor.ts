@@ -5,10 +5,11 @@ class Processor {
      * @param apiResponse CRM API response that includes "modifiedon" column.
      */
     public static processModifiedOnDate(apiResponse): string {
-        const modifiedOnDate = (apiResponse && apiResponse.modifiedon)
-            ? `${new Date(apiResponse.modifiedon).toDateString()},` +
-            ` ${new Date(apiResponse.modifiedon).toLocaleTimeString()}`
-            : this.defaultModifiedOnTime;
+        const modifiedOnDate =
+            apiResponse && apiResponse.modifiedon
+                ? `${new Date(apiResponse.modifiedon).toDateString()},` +
+                  ` ${new Date(apiResponse.modifiedon).toLocaleTimeString()}`
+                : this.defaultModifiedOnTime;
 
         return modifiedOnDate;
     }
@@ -18,15 +19,18 @@ class Processor {
      * @param apiResponse CRM API response that includes expanded "modifiedby.fullname" column.
      */
     public static processModifiedByUser(apiResponse): string {
-        const modifiedByUser = (apiResponse && apiResponse.modifiedby && apiResponse.modifiedby.fullname)
-            ? apiResponse.modifiedby.fullname
-            : this.defaultModifiedByUser;
+        const modifiedByUser =
+            apiResponse &&
+            apiResponse.modifiedby &&
+            apiResponse.modifiedby.fullname
+                ? apiResponse.modifiedby.fullname
+                : this.defaultModifiedByUser;
 
         return modifiedByUser;
     }
 
-    private static readonly defaultModifiedByUser = "another user";
-    private static readonly defaultModifiedOnTime = "the same time";
+    private static readonly defaultModifiedByUser = 'another user';
+    private static readonly defaultModifiedOnTime = 'the same time';
 }
 
 export default Processor;

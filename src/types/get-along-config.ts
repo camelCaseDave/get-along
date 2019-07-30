@@ -1,4 +1,4 @@
-import ConfirmStrings from "./confirm-strings";
+import ConfirmStrings from './confirm-strings';
 
 /** Configuration passed from the Dynamics 365 form to make GetAlong run. */
 interface GetAlongConfig {

@@ -8,13 +8,14 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "lint": "tslint src/* test*",
+    "format": "prettier --write src/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dave Clark",
   "license": "ISC",
   "devDependencies": {
     "@types/xrm": "^9.0.14",
+    "prettier": "^1.18.2",
     "rollup": "^1.11.3",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-node-resolve": "^4.2.4",

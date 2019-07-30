@@ -1,11 +1,11 @@
-import IConfirmStrings from "../types/confirm-strings";
+import IConfirmStrings from '../types/confirm-strings';
 
 /** Ui of the form dialog. */
 class DialogUi {
     public readonly defaultHeight: number = 200;
     public readonly defaultWidth: number = 450;
-    public readonly defaultConfirmButtonLabel: string = "Refresh";
-    public readonly defaultCancelButtonLabel: string = "Close";
+    public readonly defaultConfirmButtonLabel: string = 'Refresh';
+    public readonly defaultCancelButtonLabel: string = 'Close';
 
     private confirmStrings: IConfirmStrings;
 

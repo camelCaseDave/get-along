@@ -1,5 +1,5 @@
-import Processor from "../data/processor";
-import Query from "../data/query";
+import Processor from '../data/processor';
+import Query from '../data/query';
 
 /** Data of the record in CRM. */
 class Data {
@@ -27,7 +27,9 @@ class Data {
     /**
      * Gets modified on from CRM server. Returns true if it has changed, and notifies the user.
      */
-    public async checkIfModifiedOnHasChanged(notificationCallback: () => void): Promise<boolean> {
+    public async checkIfModifiedOnHasChanged(
+        notificationCallback: () => void
+    ): Promise<boolean> {
         if (!this.initialModifiedOn) {
             await this.init();
             return false;
@@ -35,16 +37,17 @@ class Data {
 
         const apiResponse = await Query.getLatestModifiedOn(this.formContext);
 
-        const modifiedOnHasChanged = apiResponse.modifiedon &&
-            (new Date(apiResponse.modifiedon) > new Date(this.initialModifiedOn!))
-            ? true : false;
+        const modifiedOnHasChanged =
+            apiResponse.modifiedon &&
+            new Date(apiResponse.modifiedon) > new Date(this.initialModifiedOn!)
+                ? true
+                : false;
 
         if (modifiedOnHasChanged && notificationCallback) {
             notificationCallback();
         }
 
         return modifiedOnHasChanged;
-
     }
 
     /**
